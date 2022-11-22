@@ -1,10 +1,15 @@
 import create from "zustand";
 
 const useStore = create((set) => ({
-  bears: ["Jake"],
-  addBear: (bear) =>
+  cousins: ["Rajiv", "Abhishek"],
+  bears: ["s"],
+  addCousin: (cousin) =>
     set((state) => ({
-      bears: [...state.bears, bear],
+      cousins: [...state.cousins, cousin],
+    })),
+  resetCousinValues: () =>
+    set(() => ({
+      cousins: [],
     })),
 }));
 
