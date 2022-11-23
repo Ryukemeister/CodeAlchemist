@@ -15,6 +15,10 @@ const useStore = create((set) => ({
     set((state) => ({
       cousins: [...state.cousins, cousin],
     })),
+  removeCousin: (cousinn) =>
+    set((state) => ({
+      cousins: state.cousins.filter((cousin) => cousin != cousinn),
+    })),
   resetCousinValues: () =>
     set(() => ({
       cousins: [],
