@@ -4,14 +4,12 @@ import useStore from "./store";
 
 function App() {
   const cousins = useStore((state) => state.cousins);
-  const bears = useStore((state) => state.bears);
   const addCousin = useStore((state) => state.addCousin);
   const resetCousinValues = useStore((state) => state.resetCousinValues);
-  // const addBear = useStore((state) => state.addBear);
-  // console.log(cousins);
-  // console.log(addCousin);
-  // console.log(addBear);
-  // addCousin("vaibhav");
+
+  const count = useStore((state) => state.count);
+  const incrementCount = useStore((state) => state.incrementCount);
+  const decrementCount = useStore((state) => state.decrementCount);
 
   function getCousinName() {
     const name = document.getElementsByClassName("cousin-name")[0];
@@ -58,6 +56,23 @@ function App() {
           </div>
         </section>
       )}
+      <div>
+        <h1 className="text-2xl font-mono font-medium">
+          Count: <span className="text-red-500 text-3xl">{count}</span>{" "}
+        </h1>
+        <button
+          className="bg-red-500 text-white px-1 text-2xl mx-4"
+          onClick={decrementCount}
+        >
+          —
+        </button>
+        <button
+          className="bg-green-500 text-white px-1 text-2xl"
+          onClick={incrementCount}
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
