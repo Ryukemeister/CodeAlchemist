@@ -1,5 +1,4 @@
-import { Input } from "postcss";
-import React from "react";
+import React, { useEffect } from "react";
 import useStore from "./store";
 
 function App() {
@@ -7,6 +6,41 @@ function App() {
   const addCousin = useStore((state) => state.addCousin);
   const resetCousinValues = useStore((state) => state.resetCousinValues);
   const removeCousins = useStore((state) => state.removeCousin);
+  const friend = useStore((state) => state.friends);
+  const addFriend = useStore((state) => state.addFriend);
+  const playerData = useStore((state) => state.playerData);
+  const teamsData = useStore((state) => state.teamsData);
+
+  function getPlayerData(playerId) {
+    fetch(
+      `https://site.web.api.espn.com/apis/common/v3/sports/soccer/epl/athletes/${playerId}`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        // console.log(data);
+        playerData.push(data);
+      });
+  }
+
+  function getTeamsData() {
+    fetch(
+      `https://site.api.espn.com/apis/site/v2/sports/soccer/:league/teams?league=eng.1`
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const { sports } = data;
+        teamsData.push(sports[0]);
+        // console.log(sports[0]);
+      });
+  }
+
+  useEffect(() => {
+    getPlayerData(6183);
+    getTeamsData();
+  }, []);
+
+  // console.log(playerData);
+  // console.log(teamsData);
 
   const count = useStore((state) => state.count);
   const incrementCount = useStore((state) => state.incrementCount);
@@ -16,6 +50,8 @@ function App() {
     const name = document.getElementsByClassName("cousin-name")[0];
     // console.log(name.value);
     addCousin(name.value);
+    console.log(playerData);
+    console.log(teamsData);
     name.value = "";
   }
 
@@ -24,6 +60,7 @@ function App() {
     // console.log(name);
     removeCousins(name);
   }
+  // console.log(friend);
 
   return (
     <div className="App">
@@ -86,6 +123,7 @@ function App() {
         >
           +
         </button>
+        <button onClick={() => addFriend("Aakash")}>Add friend</button>
       </div>
     </div>
   );
