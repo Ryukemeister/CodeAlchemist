@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import { Configuration, OpenAIApi } from "openai";
 import useStore from "./store";
 
 function App() {
@@ -10,6 +11,37 @@ function App() {
   const addFriend = useStore((state) => state.addFriend);
   const playerData = useStore((state) => state.playerData);
   const teamsData = useStore((state) => state.teamsData);
+
+  const configration = new Configuration({
+    apiKey: import.meta.env.VITE_Open_AI_Key,
+  });
+
+  const openai = new OpenAIApi(configration);
+
+  const translateFromOneLanguageToAnother = async function (
+    currentLanguage,
+    languageToBeTranslated
+  ) {
+    const response = await openai.createCompletion({
+      model: "code-davinci-002",
+      prompt: `##### Translate this function  from JavaScript into python### Javascript function addTwoNumbers(num1,num2){
+          let sum = num1+num2;
+          console.log(sum)
+        }
+        ### Python`,
+      temperature: 0,
+      max_tokens: 54,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      stop: ["###"],
+    });
+
+    console.log(response);
+    console.log(response.data.choices[0].text);
+  };
+
+  // console.log(configration.apiKey);
 
   function getPlayerData(playerId) {
     fetch(
@@ -125,6 +157,12 @@ function App() {
         </button>
         <button onClick={() => addFriend("Aakash")}>Add friend</button>
       </div>
+      <button
+        className="bg-green-500 text-white px-3 mx-2 my-2 py-1 rounded-full font-semibold"
+        onClick={translateFromOneLanguageToAnother}
+      >
+        Translate
+      </button>
     </div>
   );
 }
