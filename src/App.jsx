@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import useStore from "./store";
+import { unstable_batchedUpdates } from "react-dom";
 
 function App() {
   const cousins = useStore((state) => state.cousins);
@@ -24,11 +25,7 @@ function App() {
   ) {
     const response = await openai.createCompletion({
       model: "code-davinci-002",
-      prompt: `##### Translate this function  from JavaScript into python### Javascript function addTwoNumbers(num1,num2){
-          let sum = num1+num2;
-          console.log(sum)
-        }
-        ### Python`,
+      prompt: `##### Translate this function from Python into JavaScrip### x=3;\n y=5;\n print(x+y);### JavaScript`,
       temperature: 0,
       max_tokens: 54,
       top_p: 1.0,
@@ -42,6 +39,21 @@ function App() {
   };
 
   // console.log(configration.apiKey);
+
+  function speak() {
+    const text = `hey hows it going its me rajiv I'm a frontend developer`;
+
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voices = window.speechSynthesis.getVoices();
+
+    utterance.pitch = 1;
+    utterance.rate = 0.8;
+    utterance.voice = voices[7];
+    utterance.volume = 2;
+    // console.log(voices);
+
+    window.speechSynthesis.speak(utterance);
+  }
 
   function getPlayerData(playerId) {
     fetch(
@@ -162,6 +174,12 @@ function App() {
         onClick={translateFromOneLanguageToAnother}
       >
         Translate
+      </button>
+      <button
+        onClick={speak}
+        className="bg-red-500 text-white px-3 mx-2 my-2 py-1 rounded-full font-semibold"
+      >
+        Press me
       </button>
     </div>
   );
