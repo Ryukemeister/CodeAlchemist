@@ -25,7 +25,7 @@ function App() {
   ) {
     const response = await openai.createCompletion({
       model: "code-davinci-002",
-      prompt: `##### Translate this function from Python into JavaScrip### x=3;\n y=5;\n print(x+y);### JavaScript`,
+      prompt: `##### Translate this function from ${currentLanguage} into ${languageToBeTranslated}### x=3;\n y=5;\n print(x+y);### ${languageToBeTranslated}`,
       temperature: 0,
       max_tokens: 54,
       top_p: 1.0,
@@ -38,10 +38,35 @@ function App() {
     console.log(response.data.choices[0].text);
   };
 
+  /* prompt:
+        'class Log:\n    def __init__(self, path):\n        dirname = os.path.dirname(path)\n        os.makedirs(dirname, exist_ok=True)\n        f = open(path, "a+")\n\n        # Check that the file is newline-terminated\n        size = os.path.getsize(path)\n        if size > 0:\n            f.seek(size - 1)\n            end = f.read(1)\n            if end != "\\n":\n                f.write("\\n")\n        self.f = f\n        self.path = path\n\n    def log(self, event):\n        event["_event_id"] = str(uuid.uuid4())\n        json.dump(event, self.f)\n        self.f.write("\\n")\n\n    def state(self):\n        state = {"complete": set(), "last": None}\n        for line in open(self.path):\n            event = json.loads(line)\n            if event["type"] == "submit" and event["success"]:\n                state["complete"].add(event["id"])\n                state["last"] = event\n        return state\n\n"""\nHere\'s what the above class is doing:\n1.',*/
+
+  const explainCodeSnippet = async function () {
+    const response = await openai.createCompletion({
+      model: "code-davinci-002",
+      prompt: `function calculateAge(birthYear){
+        let age = 2022 - birthYear;
+        console.log(age);
+
+        return age;
+      };"""Here's what the code is doing`,
+      temperature: 0,
+      max_tokens: 64,
+      top_p: 1.0,
+      frequency_penalty: 0.0,
+      presence_penalty: 0.0,
+      /*stop: ['"""'],*/
+      stop: [`"""`],
+    });
+
+    console.log(response.data.choices[0].text);
+    console.log(typeof response.data.choices[0].text);
+  };
+
   // console.log(configration.apiKey);
 
-  function speak() {
-    const text = `hey hows it going its me rajiv I'm a frontend developer`;
+  function speak(text) {
+    // const text = `hey hows it going its me rajiv I'm a frontend developer`;
 
     const utterance = new SpeechSynthesisUtterance(text);
     const voices = window.speechSynthesis.getVoices();
@@ -171,15 +196,25 @@ function App() {
       </div>
       <button
         className="bg-green-500 text-white px-3 mx-2 my-2 py-1 rounded-full font-semibold"
-        onClick={translateFromOneLanguageToAnother}
+        onClick={() =>
+          translateFromOneLanguageToAnother("Python", "JavaScript")
+        }
       >
         Translate
       </button>
       <button
-        onClick={speak}
+        onClick={() =>
+          speak(`hey hows it going its me rajiv I'm a frontend developer`)
+        }
         className="bg-red-500 text-white px-3 mx-2 my-2 py-1 rounded-full font-semibold"
       >
-        Press me
+        Speak
+      </button>
+      <button
+        onClick={explainCodeSnippet}
+        className="bg-orange-500 text-white px-3 mx-2 my-2 py-1 rounded-full font-semibold"
+      >
+        Explain code
       </button>
     </div>
   );
