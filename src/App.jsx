@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import useStore from "./store";
-import { unstable_batchedUpdates } from "react-dom";
+import Editor from "./components/Editor";
 
 function App() {
   const cousins = useStore((state) => state.cousins);
@@ -216,6 +216,9 @@ function App() {
       >
         Explain code
       </button>
+      <div>
+        <Editor />
+      </div>
     </div>
   );
 }
