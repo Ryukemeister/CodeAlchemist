@@ -2,10 +2,15 @@ import create from "zustand";
 
 const useStore = create((set) => ({
   cousins: ["Rajiv", "Abhishek", "Vaibhav"],
+  code: "",
   count: 0,
   teamsData: [],
   playerData: [],
   friends: [],
+  setCode: (newValue) =>
+    set(() => ({
+      code: newValue,
+    })),
   addFriend: (friend) =>
     set((state) => ({
       friends: [...state.friends, friend],

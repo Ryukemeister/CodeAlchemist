@@ -1,6 +1,7 @@
 import React, { useEffect } from "react";
 import { Configuration, OpenAIApi } from "openai";
 import useStore from "./store";
+import Navbar from "./components/Navbar";
 import Editor from "./components/Editor";
 
 function App() {
@@ -133,6 +134,7 @@ function App() {
 
   return (
     <div className="App">
+      <Navbar />
       <input
         type="text"
         className="cousin-name border-[1.5px] outline-none border-black px-2 py-1 mx-4 mt-5"
