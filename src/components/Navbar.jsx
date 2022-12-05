@@ -1,11 +1,12 @@
 import React from "react";
 
 function Navbar() {
+  // Fixed height : 70px
   return (
-    <div className="flex bg-black h-[70px] items-center justify-between">
+    <div className="flex bg-black h-[12vh] items-center justify-between">
       <div className="pl-10">
         <a href="#">
-          <h1 className="bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text text-white font-poppins font-extrabold text-2xl">
+          <h1 className="bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text text-white font-poppins font-extrabold text-[26px]">
             CodeAlchemist
           </h1>
         </a>
