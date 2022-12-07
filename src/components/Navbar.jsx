@@ -1,34 +1,33 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 function Navbar() {
   // Fixed height : 70px
   return (
     <div className="flex bg-black h-[12vh] items-center justify-between">
       <div className="pl-10">
-        <a href="#">
-          <h1 className="bg-gradient-to-r from-pink-500 to-purple-500 text-transparent bg-clip-text text-white font-poppins font-extrabold text-[26px]">
+        <Link to="/">
+          <h1 className="bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text text-white font-poppins font-extrabold text-[26px]">
             CodeAlchemist
           </h1>
-        </a>
+        </Link>
       </div>
       <div className="flex pr-10">
         <ul className="flex gap-x-14">
           <li>
-            <a href="#">
+            <Link to="/convertCode">
               <h1 className="text-white font-poppins text-xl">Convert code</h1>
-            </a>
+            </Link>
           </li>
           <li>
-            <a href="#">
-              <h1 className="text-white font-poppins text-xl">
-                Explain a code snippet
-              </h1>
-            </a>
+            <Link to="/explainCode">
+              <h1 className="text-white font-poppins text-xl">Explain code</h1>
+            </Link>
           </li>
           <li>
-            <a href="#">
+            <Link to="/about">
               <h1 className="text-white font-poppins text-xl">About</h1>
-            </a>
+            </Link>
           </li>
         </ul>
       </div>
