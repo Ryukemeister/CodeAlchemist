@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 function Navbar() {
   // Fixed height : 70px
   return (
-    <div className="flex bg-black h-[12vh] items-center justify-between">
+    <nav className="flex bg-black h-[12vh] items-center justify-between">
       <div className="pl-10">
         <Link to="/">
           <h1 className="bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text text-white font-poppins font-extrabold text-[26px]">
@@ -31,7 +31,7 @@ function Navbar() {
           </li>
         </ul>
       </div>
-    </div>
+    </nav>
   );
 }
 
