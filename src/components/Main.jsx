@@ -12,8 +12,8 @@ export default function Main() {
           Where coding wizards come to craft their spells.
         </h1>
       </div>
-      <div className="flex justify-center items-center">
-        <Editor color="red-500" translateX="60" width="850" height="400" />
+      <div className="flex justify-center translate-x-[60px] items-center">
+        <Editor width="850" height="400" marginLeft="0" marginTop="0" />
       </div>
     </div>
   );
