@@ -20,7 +20,7 @@ function Navbar() {
       <div className="md:pl-10">
         <Sidebar handleClick={hideSidebar} />
         <Link to="/">
-          <h1 className="pl-5  md:pl-0 bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text font-poppins font-bold  text-[26px]">
+          <h1 className="pl-5 md:pl-0 bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text font-poppins font-bold  text-[26px]">
             CodeAlchemist
           </h1>
         </Link>

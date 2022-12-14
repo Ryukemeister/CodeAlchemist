@@ -38,18 +38,22 @@ function getSumofNums(num1, num2) {
     });
 
     const responseText = response.data.choices[0].text;
-    // console.log(responseText);
+    console.log(responseText);
     const splitResponseText = responseText.split("\n");
     // console.log(splitResponseText);
-    const s = splitResponseText.filter((text) => {
+    const filteredResponseText = splitResponseText.filter((text) => {
       if (!text.includes(":") && text.length > 0) {
-        console.log(text);
+        // console.log(text);
         return text;
       }
       // console.log(s);
       // console.log(text);
     });
-    console.log(s);
+
+    const joinFilteredResponseText = filteredResponseText.join(" ");
+    console.log(filteredResponseText);
+    console.log(joinFilteredResponseText);
+    speak(joinFilteredResponseText);
 
     const si = responseText
       .split("\n")
@@ -85,12 +89,11 @@ function getSumofNums(num1, num2) {
   return (
     <div>
       <Navbar />
-      <h1 className="font-poppins text-3xl font-semibold px-10 py-5">
+      <h1 className="font-poppins text-3xl font-semibold px-5 md:px-10 py-5">
         This is where we explain the code snippets.
       </h1>
-      <div className="w-[850px]">
+      <div className="-ml-5 w-[380px] md:w-[850px]">
         <Editor
-          color="red-500"
           height="320"
           marginTop="10"
           marginLeft="10"
@@ -99,7 +102,7 @@ function getSumofNums(num1, num2) {
         />
         <button
           onClick={() => handleClick(codeToBeExplained)}
-          className="bg-yellow-500 ml-10 mt-4 px-3 py-1 text-xl font-poppins font-medium text-white rounded-full"
+          className="bg-yellow-500 ml-10 mt-4 px-3 py-1 text-xl font-poppins font-semibold tracking-wide text-white rounded-md"
         >
           Expalin code
         </button>
