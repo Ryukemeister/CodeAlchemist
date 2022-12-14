@@ -3,7 +3,16 @@ import CodeMirror from "@uiw/react-codemirror";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDark } from "@uiw/codemirror-themes-all";
 
-function Editor({ width, height, code, handleChange, marginTop, marginLeft }) {
+function Editor({
+  id,
+  selectedLanguageBoxColor,
+  width,
+  height,
+  code,
+  handleChange,
+  marginTop,
+  marginLeft,
+}) {
   // Ideal width: 560px, width: 320px
   // console.log(typeof color, `bg-${color}`);
 
@@ -12,11 +21,26 @@ function Editor({ width, height, code, handleChange, marginTop, marginLeft }) {
       className={`flex flex-col w-[${width}px] mt-${marginTop} ml-${marginLeft}`}
     >
       <div
-        className={`flex bg-red-500 items-center pl-3 gap-x-4 opacity-80 h-[23px] w-[${width}px] rounded-tl-md rounded-tr-md`}
+        className={`flex justify-between bg-red-500 items-center pl-3 opacity-80 h-[30px] w-[${width}px] rounded-tl-md rounded-tr-md`}
       >
-        <div className="h-[10px] w-[10px] bg-indigo-300 rounded-full"></div>
-        <div className="h-[10px] w-[10px] bg-yellow-500 rounded-full"></div>
-        <div className="h-[10px] w-[10px] bg-green-500 rounded-full"></div>
+        <div className="flex gap-x-4">
+          <div className="h-[10px] w-[10px] bg-indigo-300 rounded-full"></div>
+          <div className="h-[10px] w-[10px] bg-yellow-500 rounded-full"></div>
+          <div className="h-[10px] w-[10px] bg-green-500 rounded-full"></div>
+        </div>
+        <div className={`${selectedLanguageBoxColor ? "block" : "hidden"}`}>
+          <select
+            name="language"
+            className={`outline-none text-white font-poppins font-semibold tracking-wide h-[30px] px-2 bg-${selectedLanguageBoxColor}-500 rounded-tr-md`}
+            id={`${id}`}
+          >
+            <option value="JavaScript">JavaScript</option>
+            <option value="TypeScript">TypeScript</option>
+            <option value="Python">Python</option>
+            <option value="C">C</option>
+            <option value="C++">C++</option>
+          </select>
+        </div>
       </div>
       <div>
         <CodeMirror
