@@ -21,9 +21,10 @@ export default function ConvertCode({ openAiConfig }) {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + apiKey,
+        Authorization: "Bearer " + String(apiKey),
       },
       body: JSON.stringify({
+        model: "code-davinci-002",
         prompt: `#####Translate this function from ${currentLanguage} into ${languageToBeTranslated}### ${currentLanguage}\n ${codeToBeConverted}### ${languageToBeTranslated}`,
         temperature: 0,
         max_tokens: 54,
@@ -33,10 +34,7 @@ export default function ConvertCode({ openAiConfig }) {
         stop: ["###"],
       }),
     };
-    fetch(
-      "https://api.openai.com/v1/engines/code-davinci-002/completions",
-      requestOptions
-    )
+    fetch("https://api.openai.com/v1/completions", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         const translatedCode = data.choices[0].text.trimStart().trimEnd();
