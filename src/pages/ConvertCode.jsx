@@ -2,12 +2,14 @@ import Navbar from "../components/Navbar";
 import Editor from "../components/Editor";
 import useStore from "../Store";
 
-export default function ConvertCode({ openAiConfig }) {
+export default function ConvertCode() {
   const codeToBeConverted = useStore((state) => state.codeToBeConverted);
   const convertedCode = useStore((state) => state.convertedCode);
   const setCodeToBeConverted = useStore((state) => state.setCodeToBeConverted);
   const setConvertedCode = useStore((state) => state.setConvertedCode);
-  const apiKey = import.meta.env.VITE_Open_AI_Key;
+  const apiKey = import.meta.env.VITE_OpenAI_Key;
+
+  // console.log(apiKey);
 
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
