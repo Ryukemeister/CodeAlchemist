@@ -7,37 +7,50 @@ export default function ConvertCode({ openAiConfig }) {
   const convertedCode = useStore((state) => state.convertedCode);
   const setCodeToBeConverted = useStore((state) => state.setCodeToBeConverted);
   const setConvertedCode = useStore((state) => state.setConvertedCode);
+  const apiKey = import.meta.env.VITE_Open_AI_Key;
 
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
 
-  const translateFromOneLanguageToAnother = async function (
+  const translateFromOneLangToAnother = async function (
     codeToBeConverted,
     currentLanguage,
     languageToBeTranslated
   ) {
-    const response = await openAiConfig.createCompletion({
-      model: "code-davinci-002",
-      /*prompt: `##### Translate this function from ${currentLanguage} into ${languageToBeTranslated}### Python\n x=3;\n y=5;\n print(x+y);### ${languageToBeTranslated}`*/
-      prompt: `#####Translate this function from ${currentLanguage} into ${languageToBeTranslated}### ${currentLanguage}\n ${codeToBeConverted}### ${languageToBeTranslated}`,
-      temperature: 0,
-      max_tokens: 54,
-      top_p: 1.0,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-      stop: ["###"],
-    });
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + apiKey,
+      },
+      body: JSON.stringify({
+        prompt: `#####Translate this function from ${currentLanguage} into ${languageToBeTranslated}### ${currentLanguage}\n ${codeToBeConverted}### ${languageToBeTranslated}`,
+        temperature: 0,
+        max_tokens: 54,
+        top_p: 1.0,
+        frequency_penalty: 0.0,
+        presence_penalty: 0.0,
+        stop: ["###"],
+      }),
+    };
+    await fetch(
+      "https://api.openai.com/v1/engines/code-davinci-002/completions",
+      requestOptions
+    )
+      .then((response) => response.json())
+      .then((data) => {
+        const translatedCode = data.choices[0].text.trimStart().trimEnd();
 
-    // console.log(response);
-    // Trimming the start and end part of 'response.data.choices[0].text'
-    const translatedCode = response.data.choices[0].text.trimStart().trimEnd();
-
-    setConvertedCode(translatedCode);
+        setConvertedCode(translatedCode);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   };
 
   function handleClick() {
     setConvertedCode("");
-    translateFromOneLanguageToAnother(
+    translateFromOneLangToAnother(
       codeToBeConverted,
       currentLang.value,
       langToConvert.value
