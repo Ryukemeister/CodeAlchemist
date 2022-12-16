@@ -27,7 +27,7 @@ export default function ConvertCode({ openAiConfig }) {
         model: "code-davinci-002",
         prompt: `#####Translate this function from ${currentLanguage} into ${languageToBeTranslated}### ${currentLanguage}\n ${codeToBeConverted}### ${languageToBeTranslated}`,
         temperature: 0,
-        max_tokens: 54,
+        max_tokens: 256,
         top_p: 1.0,
         frequency_penalty: 0.0,
         presence_penalty: 0.0,
@@ -40,6 +40,7 @@ export default function ConvertCode({ openAiConfig }) {
         const translatedCode = data.choices[0].text.trimStart().trimEnd();
 
         setConvertedCode(translatedCode);
+        console.log("Bearer " + String(apiKey));
       })
       .catch((err) => {
         console.log(err);
