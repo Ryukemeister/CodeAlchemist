@@ -1,13 +1,14 @@
 import Navbar from "../components/Navbar";
 import Editor from "../components/Editor";
 import useStore from "../Store";
+import OpenAI_Key from "./config.js";
 
 export default function ConvertCode() {
   const codeToBeConverted = useStore((state) => state.codeToBeConverted);
   const convertedCode = useStore((state) => state.convertedCode);
   const setCodeToBeConverted = useStore((state) => state.setCodeToBeConverted);
   const setConvertedCode = useStore((state) => state.setConvertedCode);
-  const apiKey = import.meta.env.VITE_OpenAI_Key;
+  const apiKey = import.meta.env.VITE_Open_AI_Key;
 
   // console.log(apiKey);
 
@@ -23,7 +24,7 @@ export default function ConvertCode() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + String(apiKey),
+        Authorization: "Bearer " + String(OpenAI_Key),
       },
       body: JSON.stringify({
         model: "code-davinci-002",
