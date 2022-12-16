@@ -47,7 +47,7 @@ export default function ConvertCode() {
       })
       .catch((err) => {
         console.log(err);
-        console.log("Bearer " + String(apiKey));
+        console.log("Bearer " + String(OpenAI_Key));
       });
   };
 
