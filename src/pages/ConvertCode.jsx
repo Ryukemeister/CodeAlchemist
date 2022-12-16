@@ -44,6 +44,7 @@ export default function ConvertCode({ openAiConfig }) {
       })
       .catch((err) => {
         console.log(err);
+        console.log("Bearer " + String(apiKey));
       });
   };
 
