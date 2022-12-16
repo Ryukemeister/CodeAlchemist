@@ -12,7 +12,7 @@ export default function ConvertCode({ openAiConfig }) {
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
 
-  const translateFromOneLangToAnother = async function (
+  const translateFromOneLangToAnother = function (
     codeToBeConverted,
     currentLanguage,
     languageToBeTranslated
@@ -33,7 +33,7 @@ export default function ConvertCode({ openAiConfig }) {
         stop: ["###"],
       }),
     };
-    await fetch(
+    fetch(
       "https://api.openai.com/v1/engines/code-davinci-002/completions",
       requestOptions
     )
