@@ -1,16 +1,14 @@
 import Navbar from "../components/Navbar";
 import Editor from "../components/Editor";
 import useStore from "../Store";
-import OpenAI_Key from "./config.js";
 
 export default function ConvertCode() {
   const codeToBeConverted = useStore((state) => state.codeToBeConverted);
   const convertedCode = useStore((state) => state.convertedCode);
   const setCodeToBeConverted = useStore((state) => state.setCodeToBeConverted);
   const setConvertedCode = useStore((state) => state.setConvertedCode);
-  const apiKey = import.meta.env.VITE_Open_AI_Key;
-
-  // console.log(apiKey);
+  // const apiKey = import.meta.env.VITE_Open_AI_Key;
+  const apiKey = process.env.OpenAI_KEY;
 
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
@@ -24,7 +22,7 @@ export default function ConvertCode() {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
-        Authorization: "Bearer " + String(OpenAI_Key),
+        Authorization: "Bearer " + String(apiKey),
       },
       body: JSON.stringify({
         model: "code-davinci-002",
@@ -47,7 +45,7 @@ export default function ConvertCode() {
       })
       .catch((err) => {
         console.log(err);
-        console.log("Bearer " + String(OpenAI_Key));
+        console.log("Bearer " + String(apiKey));
       });
   };
 
