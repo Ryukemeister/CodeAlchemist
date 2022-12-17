@@ -1,6 +1,7 @@
 import Navbar from "../components/Navbar";
 import Editor from "../components/Editor";
 import useStore from "../Store";
+import process from "process";
 
 export default function ConvertCode() {
   const codeToBeConverted = useStore((state) => state.codeToBeConverted);
