@@ -12,7 +12,7 @@ export default function ConvertCode() {
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
 
-  const translateFromOneLangToAnother = function (
+  const translateFromOneLangToAnother = async function (
     codeToBeConverted,
     currentLanguage,
     languageToBeTranslated
@@ -34,7 +34,7 @@ export default function ConvertCode() {
         stop: ["###"],
       }),
     };
-    fetch("https://api.openai.com/v1/completions", requestOptions)
+    await fetch("https://api.openai.com/v1/completions", requestOptions)
       .then((response) => response.json())
       .then((data) => {
         const translatedCode = data.choices[0].text.trimStart().trimEnd();
@@ -46,10 +46,37 @@ export default function ConvertCode() {
       });
   };
 
-  function handleClick() {
+  function handleClick(prompt) {
+    const err = `// Oops, something's wrong :(
+
+const error = {
+  causes:[
+    "Either you haven't provided any input to the Editor.",
+    "Or the language that you're trying to convert your code into and the language that you're current providing to the Editor are both one and the same",
+    "Or maybe you aren't connected to the internet."
+  ], 
+  possibleSolutions:[
+    "Try providing a better prompt to the Editor.",
+    "Or check if the language that you write your code and the language you want to convert your code into are not the same.",
+    "Or try refreshing your browser."
+  ],
+}; `;
+
+    // Error handling
+    // Try to check if the user provides a blank input to the Editor
+    // Or the language to convert and current language are the same
+    if (
+      prompt.length <= 0 ||
+      currentLang.value == langToConvert.value ||
+      prompt == err
+    ) {
+      setConvertedCode(err);
+      return;
+    }
+
     setConvertedCode("");
     translateFromOneLangToAnother(
-      codeToBeConverted,
+      prompt,
       currentLang.value,
       langToConvert.value
     );
@@ -84,7 +111,7 @@ export default function ConvertCode() {
         />
       </div>
       <button
-        onClick={handleClick}
+        onClick={() => handleClick(codeToBeConverted)}
         className="bg-red-500 opacity-90 text-white font-poppins font-semibold text-xl px-3 py-1 rounded-md tracking-wide ml-5 md:ml-10 mt-5"
       >
         Convert code
