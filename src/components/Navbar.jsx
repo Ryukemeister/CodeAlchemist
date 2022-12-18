@@ -16,11 +16,11 @@ function Navbar() {
   }
 
   return (
-    <nav className="flex bg-black h-[12vh] items-center justify-between overflow-hidden">
+    <nav className="flex bg-black h-[15vh] md:h-[12vh] items-center justify-between overflow-hidden">
       <div className="md:pl-10">
         <Sidebar handleClick={hideSidebar} />
         <Link to="/">
-          <h1 className="pl-5 md:pl-0 bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text font-poppins font-bold  text-[26px]">
+          <h1 className="pl-5 md:pl-0 bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text font-poppins font-bold text-[28px]">
             CodeAlchemist
           </h1>
         </Link>
@@ -29,7 +29,7 @@ function Navbar() {
         <button onClick={displaySidebar}>
           <img
             src="/Hamburger_Icon.jpg"
-            className="w-[50px] h-[40px] mr-5"
+            className="w-[60px] h-[50px] mr-5"
             alt="Hamburger icon"
           />
         </button>

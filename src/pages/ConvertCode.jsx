@@ -8,8 +8,10 @@ export default function ConvertCode() {
   const convertedCode = useStore((state) => state.convertedCode);
   const setCodeToBeConverted = useStore((state) => state.setCodeToBeConverted);
   const setConvertedCode = useStore((state) => state.setConvertedCode);
-  // const apiKey = import.meta.env.VITE_Open_AI_Key;
-  const apiKey = process.env.OpenAI_KEY;
+  const apiKey = import.meta.env.VITE_Open_AI_Key;
+  //  const apiKey = process.env.OpenAI_KEY;
+
+  // console.log(apiKey);
 
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
@@ -62,7 +64,7 @@ export default function ConvertCode() {
   return (
     <div>
       <Navbar />
-      <h1 className="font-poppins text-3xl font-semibold px-10 py-5">
+      <h1 className="font-poppins text-3xl font-semibold px-5 md:px-10 py-5">
         This is where we convert our code.
       </h1>
       <div className="overflow-hidden flex flex-col md:flex-row gap-x-14 ml-5 gap-y-10 md:ml-10 mt-5">

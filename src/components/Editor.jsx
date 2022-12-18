@@ -18,20 +18,20 @@ function Editor({
 
   return (
     <div
-      className={`flex flex-col w-[${width}px] mt-${marginTop} ml-${marginLeft}`}
+      className={`flex flex-col mr-5 md:mr-0 overflow-hidden md:w-[${width}px] mt-${marginTop} ml-${marginLeft}`}
     >
       <div
-        className={`flex justify-between bg-red-500 items-center pl-3 opacity-80 h-[30px] w-[${width}px] rounded-tl-md rounded-tr-md`}
+        className={`flex justify-between bg-red-500 items-center pl-3 opacity-80 h-[20px] md:h-[30px] w-[${width}px] rounded-tl-md rounded-tr-md`}
       >
         <div className="flex gap-x-4">
-          <div className="h-[10px] w-[10px] bg-indigo-300 rounded-full"></div>
-          <div className="h-[10px] w-[10px] bg-yellow-500 rounded-full"></div>
-          <div className="h-[10px] w-[10px] bg-green-500 rounded-full"></div>
+          <div className="h-[8px] md:h-[10px] w-[8px] md:w-[10px] bg-indigo-300 rounded-full"></div>
+          <div className="h-[8px] md:h-[10px] w-[8px] md:w-[10px] bg-yellow-500 rounded-full"></div>
+          <div className="h-[8px] md:h-[10px] w-[8px] md:w-[10px] bg-green-500 rounded-full"></div>
         </div>
         <div className={`${selectedLanguageBoxColor ? "block" : "hidden"}`}>
           <select
             name="language"
-            className={`outline-none text-white font-poppins font-semibold tracking-wide h-[30px] px-2 bg-${selectedLanguageBoxColor}-500 rounded-tr-md`}
+            className={`outline-none text-sm md:text-base text-white font-poppins font-semibold tracking-wide h-[25px] md:h-[30px] px-2 bg-${selectedLanguageBoxColor}-500 rounded-tr-md`}
             id={`${id}`}
           >
             <option value="JavaScript">JavaScript</option>

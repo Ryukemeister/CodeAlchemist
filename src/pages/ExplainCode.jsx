@@ -36,6 +36,7 @@ function getSumofNums(num1, num2) {
       /*stop: ['"""'],*/
       stop: [`"""`],
     });
+    // window.navigator.userAgent = "My custom user agent";
 
     const responseText = response.data.choices[0].text;
     console.log(responseText);
@@ -89,20 +90,20 @@ function getSumofNums(num1, num2) {
   return (
     <div>
       <Navbar />
-      <h1 className="font-poppins text-3xl font-semibold px-5 md:px-10 py-5">
+      <h1 className="font-poppins text-3xl font-semibold pl-5 md:px-10 py-5">
         This is where we explain the code snippets.
       </h1>
-      <div className="-ml-5 w-[380px] md:w-[850px]">
+      <div className="overflow-hidden w-[370px] ml-5 md:ml-10 md:w-[850px]">
         <Editor
           height="320"
-          marginTop="10"
-          marginLeft="10"
+          marginTop="0"
+          marginLeft="0"
           code={codeToBeExplained}
           handleChange={setCodeToBeExplained}
         />
         <button
           onClick={() => handleClick(codeToBeExplained)}
-          className="bg-yellow-500 ml-10 mt-4 px-3 py-1 text-xl font-poppins font-semibold tracking-wide text-white rounded-md"
+          className="bg-yellow-500 mt-4 px-3 py-1 text-xl font-poppins font-semibold tracking-wide text-white rounded-md"
         >
           Expalin code
         </button>
@@ -110,3 +111,10 @@ function getSumofNums(num1, num2) {
     </div>
   );
 }
+
+/*
+To set the user agent manually in the above React code, you can use the "navigator.userAgent" property. This property is accessible on the global window object, and will return a string containing the user agent information of the browser. You can then use this string to set the user agent header in your request.
+You can set the user agent manually by using the `Navigator.userAgent` property. For example: 
+
+`window.navigator.userAgent = 'My custom user agent';`
+*/
