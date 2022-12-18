@@ -44,11 +44,9 @@ export default function ConvertCode() {
         const translatedCode = data.choices[0].text.trimStart().trimEnd();
 
         setConvertedCode(translatedCode);
-        console.log("Bearer " + String(apiKey));
       })
       .catch((err) => {
         console.log(err);
-        console.log("Bearer " + String(apiKey));
       });
   };
 
