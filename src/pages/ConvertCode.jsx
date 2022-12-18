@@ -1,7 +1,6 @@
 import Navbar from "../components/Navbar";
 import Editor from "../components/Editor";
 import useStore from "../Store";
-import process from "process";
 
 export default function ConvertCode() {
   const codeToBeConverted = useStore((state) => state.codeToBeConverted);
@@ -9,9 +8,6 @@ export default function ConvertCode() {
   const setCodeToBeConverted = useStore((state) => state.setCodeToBeConverted);
   const setConvertedCode = useStore((state) => state.setConvertedCode);
   const apiKey = import.meta.env.VITE_Open_AI_Key;
-  //  const apiKey = process.env.OpenAI_KEY;
-
-  // console.log(apiKey);
 
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
@@ -31,7 +27,7 @@ export default function ConvertCode() {
         model: "code-davinci-002",
         prompt: `#####Translate this function from ${currentLanguage} into ${languageToBeTranslated}### ${currentLanguage}\n ${codeToBeConverted}### ${languageToBeTranslated}`,
         temperature: 0,
-        max_tokens: 256,
+        max_tokens: 2000,
         top_p: 1.0,
         frequency_penalty: 0.0,
         presence_penalty: 0.0,
