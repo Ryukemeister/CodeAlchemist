@@ -29,7 +29,7 @@ function Navbar() {
         <button onClick={displaySidebar}>
           <img
             src="/Hamburger_Icon.jpg"
-            className="w-[60px] h-[50px] mr-5"
+            className="w-[50px] h-[40px] mr-5"
             alt="Hamburger icon"
           />
         </button>
