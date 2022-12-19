@@ -4,41 +4,39 @@ import { Link } from "react-router-dom";
 function Sidebar({ handleClick }) {
   return (
     <div className="flex flex-col hamburger-navigation fixed w-[100vw] h-[100vh] translate-x-[-100%] transition-all ease-in-out duration-500 bg-black z-50 md:hidden">
-      <div className="flex w-[100vw] pr-6 transition-all justify-end">
-        <button onClick={handleClick}>
+      <div className="justify-center w-[100%] h-[95%]">
+        <button className="fixed w-[100%]" onClick={handleClick}>
           <img
-            className="w-[50px] h-[50px]"
+            className="w-[50px] h-[50px] float-right mr-5"
             src="/Cross_Icon.jpg"
             alt="Cross icon"
           />
         </button>
-      </div>
-      <div className="flex h-[91vh] justify-center items-center">
-        <ul className="flex flex-col gap-x-0 gap-y-14">
+        <ul className="flex justify-center items-center h-[100%] flex-col gap-x-0 gap-y-14">
           <li>
             <Link to="/">
-              <h1 className="text-white font-semibold font-poppins text-4xl text-center">
+              <h1 className="text-white font-bebasNeue font-semibold tracking-wider text-4xl text-center">
                 Home
               </h1>
             </Link>
           </li>
           <li>
             <Link to="/convertCode">
-              <h1 className="text-white font-semibold font-poppins text-4xl text-center">
+              <h1 className="text-white font-bebasNeue font-semibold tracking-wider text-4xl text-center">
                 Convert code
               </h1>
             </Link>
           </li>
           <li>
             <Link to="/explainCode">
-              <h1 className="text-white font-semibold font-poppins text-4xl text-center">
+              <h1 className="text-white font-bebasNeue font-semibold tracking-wider text-4xl text-center">
                 Explain code
               </h1>
             </Link>
           </li>
           <li>
             <Link to="/about">
-              <h1 className="text-white font-semibold font-poppins text-4xl text-center">
+              <h1 className="text-white font-bebasNeue font-semibold tracking-wider text-4xl text-center">
                 About
               </h1>
             </Link>
