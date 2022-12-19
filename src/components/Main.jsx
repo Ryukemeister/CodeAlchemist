@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 
 export default function Main() {
   return (
-    <div className="overflow-hidden justify-center md:justify-start flex flex-col md:flex-row h-[88vh]">
+    <div className="overflow-hidden justify-center md:justify-start flex flex-col md:flex-row h-[85vh] md:h-[88vh]">
       <div className="flex flex-col md:mt-0 md:justify-center">
         <h1 className="font-poppins w-[350px] md:w-[570px] font-semibold text-[68px] md:text-[80px] ml-5 md:ml-10 mb-5 leading-[105%]">
           Turning code into clarity.
