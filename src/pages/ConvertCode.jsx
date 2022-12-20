@@ -112,7 +112,7 @@ const error = {
       </div>
       <button
         onClick={() => handleClick(codeToBeConverted)}
-        className="bg-red-500 opacity-90 text-white font-poppins font-semibold text-xl px-3 py-1 rounded-md tracking-wide ml-5 md:ml-10 mt-5"
+        className="bg-red-500 opacity-90 text-white font-poppins font-semibold text-xl px-3 py-1 rounded-md tracking-wide ml-5 md:ml-10 mb-5 mt-5"
       >
         Convert code
       </button>
