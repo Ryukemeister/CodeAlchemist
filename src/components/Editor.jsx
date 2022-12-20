@@ -1,5 +1,6 @@
 import React from "react";
 import CodeMirror from "@uiw/react-codemirror";
+import { EditorView } from "@codemirror/view";
 import { javascript } from "@codemirror/lang-javascript";
 import { vscodeDark } from "@uiw/codemirror-themes-all";
 
@@ -12,6 +13,7 @@ function Editor({
   handleChange,
   marginTop,
   marginLeft,
+  isEditable,
 }) {
   // Ideal width: 560px, width: 320px
   // console.log(typeof color, `bg-${color}`);
@@ -50,7 +52,13 @@ function Editor({
           /*mode={javascript}*/
           mode="javascript"
           theme={vscodeDark}
-          extensions={[javascript({ jsx: true })]}
+          extensions={[
+            javascript({ jsx: true }),
+            // EditorView.editable.of(false),
+            isEditable
+              ? EditorView.editable.of(true)
+              : EditorView.editable.of(false),
+          ]}
           style={{
             borderBottomLeftRadius: "6px",
             borderBottomRightRadius: "6px",
