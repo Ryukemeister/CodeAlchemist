@@ -19,7 +19,13 @@ export default function Main() {
         </button>
       </div>
       <div className="hidden md:flex justify-center translate-x-[60px] items-center">
-        <Editor width="850" height="400" marginLeft="0" marginTop="0" />
+        <Editor
+          width="850"
+          height="400"
+          marginLeft="0"
+          marginTop="0"
+          isEditable="false"
+        />
       </div>
     </div>
   );

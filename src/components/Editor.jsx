@@ -54,8 +54,8 @@ function Editor({
           theme={vscodeDark}
           extensions={[
             javascript({ jsx: true }),
-            // EditorView.editable.of(false),
-            isEditable
+            // Makes the readOnly based on the value of the idEditable prop
+            isEditable == "true"
               ? EditorView.editable.of(true)
               : EditorView.editable.of(false),
           ]}
