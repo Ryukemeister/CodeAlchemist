@@ -148,21 +148,25 @@ const error = {
       <h1 className="font-poppins text-3xl font-semibold pl-5 md:px-10 py-5">
         This is where we explain the code snippets.
       </h1>
-      <div className="overflow-hidden w-[355px] ml-5 md:ml-10 md:w-[850px]">
-        <Editor
-          height="320"
-          marginTop="0"
-          marginLeft="0"
-          code={codeToBeExplained}
-          handleChange={setCodeToBeExplained}
-          isEditable="true"
-        />
-        <button
-          onClick={() => handleClick(codeToBeExplained)}
-          className="bg-yellow-500 mt-4 mb-4 px-3 py-1 text-xl font-poppins font-semibold tracking-wide text-white rounded-md"
-        >
-          Expalin code
-        </button>
+      <div className="overflow-hidden ml-5 md:ml-10 md:w-[850px]">
+        <div className="w-[100%] mr-5">
+          <Editor
+            height="320"
+            marginTop="0"
+            marginLeft="0"
+            code={codeToBeExplained}
+            handleChange={setCodeToBeExplained}
+            isEditable="true"
+          />
+        </div>
+        <div>
+          <button
+            onClick={() => handleClick(codeToBeExplained)}
+            className="bg-yellow-500 mt-4 mb-4 px-3 py-1 text-xl font-poppins font-semibold tracking-wide text-white rounded-md"
+          >
+            Expalin code
+          </button>
+        </div>
       </div>
     </div>
   );
