@@ -15,9 +15,6 @@ function Editor({
   marginLeft,
   isEditable,
 }) {
-  // Ideal width: 560px, width: 320px
-  // console.log(typeof color, `bg-${color}`);
-
   return (
     <div
       className={`flex flex-col mr-5 md:mr-0 overflow-hidden md:w-[${width}px] mt-${marginTop} ml-${marginLeft}`}
@@ -49,12 +46,11 @@ function Editor({
           className="border-b-8 border-[#1E1E1E]"
           value={code}
           onChange={handleChange}
-          /*mode={javascript}*/
           mode="javascript"
           theme={vscodeDark}
           extensions={[
             javascript({ jsx: true }),
-            // Makes the readOnly based on the value of the idEditable prop
+            // Makes the Editor readOnly based on the value of the isEditable prop
             isEditable == "true"
               ? EditorView.editable.of(true)
               : EditorView.editable.of(false),
