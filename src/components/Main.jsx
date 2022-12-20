@@ -12,16 +12,14 @@ export default function Main() {
         <h1 className="font-poppins font-medium w-[350px] md:w-[465px] text-[28px] md:text-[36px] ml-5 md:ml-10 leading-[130%]">
           Where coding wizards come to craft their spells.
         </h1>
-      </div>
-      <div className="hidden md:flex justify-center translate-x-[60px] items-center">
-        <Editor width="850" height="400" marginLeft="0" marginTop="0" />
-      </div>
-      <div className="block md:hidden">
-        <button className="bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent font-poppins font-semibold px-4 py-2 rounded-md text-3xl ml-5 mt-5">
+        <button className="w-[230px] md:w-[220px] bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent font-poppins font-semibold px-4 py-[8px] md:py-[6px] rounded-md text-3xl ml-5 mt-5 md:ml-10">
           <Link to="/about">
             <h1 className="text-white">Know more</h1>
           </Link>
         </button>
+      </div>
+      <div className="hidden md:flex justify-center translate-x-[60px] items-center">
+        <Editor width="850" height="400" marginLeft="0" marginTop="0" />
       </div>
     </div>
   );
