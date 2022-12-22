@@ -146,10 +146,15 @@ const error = {
     <div>
       <Navbar />
       <h1 className="font-poppins text-3xl font-semibold pl-5 md:px-10 py-5">
-        This is where we explain the code snippets.
+        Welcome to{" "}
+        <span className="bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text">
+          {" "}
+          Explanation Land
+        </span>
+        , where you get explanations about code snippets.
       </h1>
       <div className="overflow-hidden ml-5 md:ml-10 md:w-[850px]">
-        <div className="w-[100%] mr-5">
+        <div className="w-[100%] mr-5 md:mr-0">
           <Editor
             height="320"
             marginTop="0"

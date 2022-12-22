@@ -85,8 +85,13 @@ const error = {
   return (
     <div>
       <Navbar />
-      <h1 className="font-poppins text-3xl font-semibold px-5 md:px-10 py-5">
-        This is where we convert our code.
+      <h1 className="font-poppins text-3xl font-semibold px-5 md:px-10 pt-5 md:py-5">
+        Welcome to{" "}
+        <span className="bg-gradient-to-r from-[#8A2387] via-[#E94057] to-[#F27121] text-transparent bg-clip-text">
+          {" "}
+          Conversion Land
+        </span>
+        , this is where you convert your code.
       </h1>
       <div className="overflow-hidden flex flex-col md:flex-row gap-x-14 ml-5 gap-y-10 md:ml-10 mt-5">
         <Editor
