@@ -5,6 +5,7 @@ const useStore = create((set) => ({
   codeToBeConverted: "",
   codeToBeExplained: "",
   convertedCode: "",
+  codeReadyToBeExplained: [],
   setConvertedCode: (newValue) =>
     set(() => ({
       convertedCode: newValue,
@@ -16,6 +17,10 @@ const useStore = create((set) => ({
   setCodeToBeExplained: (newValue) =>
     set(() => ({
       codeToBeExplained: newValue,
+    })),
+  setCodeReadyToBeExplained: (newValue) =>
+    set(() => ({
+      codeReadyToBeExplained: newValue,
     })),
 }));
 

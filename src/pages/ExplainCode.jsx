@@ -2,16 +2,34 @@ import Navbar from "../components/Navbar";
 import Editor from "../components/Editor";
 import useStore from "../Store";
 
-/*
-const calcAge = function(birthYear, currentYear) {
-  const age = currentYear - birthYear;
-  return `Your age is ${age} years.`;
-};
-*/
-export default function ExplainCode({ openAiConfig }) {
+export default function ExplainCode() {
   const codeToBeExplained = useStore((state) => state.codeToBeExplained);
   const setCodeToBeExplained = useStore((state) => state.setCodeToBeExplained);
+  const codeReadyToBeExplained = useStore(
+    (state) => state.codeReadyToBeExplained
+  );
+  const setCodeReadyToBeExplained = useStore(
+    (state) => state.setCodeReadyToBeExplained
+  );
   const apiKey = import.meta.env.VITE_Open_AI_Key;
+
+  // This the part where all the code snippet explanation is displayed to the user
+  const codeSnippetExplanation = (
+    <div>
+      <h1 className="font-poppins mx-5 mb-1 md:mx-10 font-semibold text-2xl">
+        Here's what the below code snippet does: <br />
+      </h1>
+      <span className="font-poppins text-xl bg-yellow-500 text-black">
+        {codeReadyToBeExplained.map((piece, i) => {
+          return (
+            <p className="font-poppins text-xl px-5 md:px-10" key={i}>
+              {i + 1}. {piece} <br />
+            </p>
+          );
+        })}
+      </span>
+    </div>
+  );
 
   const explainUserCodeSnippet = async function (inputCodePrompt) {
     const requestOptions = {
@@ -24,7 +42,7 @@ export default function ExplainCode({ openAiConfig }) {
         model: "code-davinci-002",
         prompt: `${inputCodePrompt}"""Here's what the code is doing`,
         temperature: 0,
-        max_tokens: 120,
+        max_tokens: 80,
         top_p: 1.0,
         frequency_penalty: 0.0,
         presence_penalty: 0.0,
@@ -37,74 +55,27 @@ export default function ExplainCode({ openAiConfig }) {
         .then((response) => response.json())
         .then((data) => {
           const responseText = data.choices[0].text;
+
+          // Splitting up the text that we get as a response from the api
+          // Then filtering out the unnecessary part
           const splitResponseText = responseText.split("\n");
           const filterResponseText = splitResponseText.filter((text) => {
-            if (!text.includes(":") && text.length > 0) {
-              // console.log(text);
+            if (!(text == ":") && text.length > 0) {
               return text;
             }
-            // console.log(s);
-            // console.log(text);
           });
           const joinFilteredResponseText = filterResponseText.join(" ");
 
-          console.log(data);
-          console.log(data.choices[0].text);
-          console.log(joinFilteredResponseText);
+          setCodeReadyToBeExplained(filterResponseText);
+          speak(joinFilteredResponseText);
         });
     } catch (err) {
       console.error(err);
     }
   };
 
-  const explainCodeSnippet = async function (inputCodePrompt) {
-    const response = await openAiConfig.createCompletion({
-      model: "code-davinci-002",
-      prompt: `${inputCodePrompt}"""Here's what the code is doing`,
-      /*
-      prompt: `function calculateAge(birthYear){
-        let age = 2022 - birthYear;
-        console.log(age);
-
-        return age;
-      };"""Here's what the code is doing`
-      */ temperature: 0,
-      max_tokens: 64,
-      top_p: 1.0,
-      frequency_penalty: 0.0,
-      presence_penalty: 0.0,
-      /*stop: ['"""'],*/
-      stop: [`"""`],
-    });
-
-    const responseText = response.data.choices[0].text;
-    console.log(responseText);
-    const splitResponseText = responseText.split("\n");
-    // console.log(splitResponseText);
-    const filteredResponseText = splitResponseText.filter((text) => {
-      if (!text.includes(":") && text.length > 0) {
-        // console.log(text);
-        return text;
-      }
-      // console.log(s);
-      // console.log(text);
-    });
-
-    const joinFilteredResponseText = filteredResponseText.join(" ");
-    console.log(filteredResponseText);
-    console.log(joinFilteredResponseText);
-    speak(joinFilteredResponseText);
-
-    const si = responseText
-      .split("\n")
-      .filter((text) => (text.includes("") || text.includes(":") ? "" : text));
-    // console.log(s);
-    // console.log(typeof response.data.choices[0].text);
-  };
-
   function handleClick(prompt) {
-    // console.log(prompt, typeof prompt);
-    // explainCodeSnippet(prompt);
+    // Error message to be displayed
     const err = `// Oops, something's wrong :(
 
 const error = {
@@ -114,30 +85,24 @@ const error = {
       `;
 
     // Error handling
-    // Try to check if the user provides a blank input to the Editor
+    // Trying to check if the user provides a blank input to the Editor
     if (prompt.length <= 0 || prompt == err) {
       setCodeToBeExplained(err);
       return;
     }
 
     explainUserCodeSnippet(prompt);
-    console.log(`${prompt}"""Here's what the code is doing`);
-    setCodeToBeExplained("");
   }
 
-  // console.log(configration.apiKey);
-
   function speak(text) {
-    // const text = `hey hows it going its me rajiv I'm a frontend developer`;
-
     const utterance = new SpeechSynthesisUtterance(text);
     const voices = window.speechSynthesis.getVoices();
 
+    // Setting up the pitch tone and rate
     utterance.pitch = 1;
     utterance.rate = 0.8;
     utterance.voice = voices[7];
     utterance.volume = 2;
-    // console.log(voices);
 
     window.speechSynthesis.speak(utterance);
   }
@@ -151,8 +116,11 @@ const error = {
           {" "}
           Explanation Land
         </span>
-        , where you get explanations about code snippets.
+        , this is where you get all the explanations about your code snippet.
       </h1>
+      {codeReadyToBeExplained.length > 0 && (
+        <div className="pb-5">{codeSnippetExplanation}</div>
+      )}
       <div className="overflow-hidden ml-5 md:ml-10 md:w-[850px]">
         <div className="w-[100%] mr-5 md:mr-0">
           <Editor
@@ -167,7 +135,7 @@ const error = {
         <div>
           <button
             onClick={() => handleClick(codeToBeExplained)}
-            className="bg-yellow-500 mt-4 mb-4 px-3 py-1 text-xl font-poppins font-semibold tracking-wide text-white rounded-md"
+            className="bg-yellow-500 outline-none mt-4 mb-4 px-3 py-1 text-xl font-poppins font-semibold tracking-wide text-white rounded-md"
           >
             Expalin code
           </button>
