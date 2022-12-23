@@ -18,14 +18,8 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/about" element={<About />}></Route>
-        <Route
-          path="/convertCode"
-          element={<ConvertCode openAiConfig={openai} />}
-        ></Route>
-        <Route
-          path="/explainCode"
-          element={<ExplainCode openAiConfig={openai} />}
-        ></Route>
+        <Route path="/convertCode" element={<ConvertCode />}></Route>
+        <Route path="/explainCode" element={<ExplainCode />}></Route>
       </Routes>
     </div>
   );
