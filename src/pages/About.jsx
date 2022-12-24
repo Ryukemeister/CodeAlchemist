@@ -15,7 +15,7 @@ export default function About() {
             language!{" "}
           </span>
         </h1>
-        <p className="mx-5 mb-8 md:mb-2 md:mx-10 mt-5 font-poppins text-2xl leading-[150%]">
+        <p className="mx-5 mb-8 md:mb-2 md:mx-10 mt-5 font-poppins font-openSans text-2xl leading-[150%]">
           CodeAlchemist is an online code conversion and code explanation
           service for software developers. With CodeAlchemist, developers can
           easily convert code from one language to another, as well as access
@@ -30,7 +30,7 @@ export default function About() {
           snippets. This means that developers can learn how to use code in
           different languages and apply it to their own projects. Overall,
           CodeAlchemist is the perfect tool for developers who want to make the
-          most out of their coding experience
+          most out of their coding experience.
         </p>
       </div>
     </div>
