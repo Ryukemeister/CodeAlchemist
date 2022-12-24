@@ -121,7 +121,7 @@ const error = {
       {codeReadyToBeExplained.length > 0 && (
         <div className="pb-5">{codeSnippetExplanation}</div>
       )}
-      <div className="overflow-hidden ml-5 md:ml-10 md:w-[850px]">
+      <div className="overflow-hidden ml-5 mr-5 md:ml-10 lg:w-[850px]">
         <div className="w-[100%] mr-5 md:mr-0">
           <Editor
             height="320"

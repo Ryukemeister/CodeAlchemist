@@ -93,7 +93,7 @@ const error = {
         </span>
         , this is where you convert your code.
       </h1>
-      <div className="overflow-hidden flex flex-col md:flex-row gap-x-14 ml-5 gap-y-10 md:ml-10 mt-5">
+      <div className="overflow-hidden flex flex-col md:flex-row mx-5 gap-x-14 gap-y-10 md:ml-10 mt-5">
         <Editor
           width="560"
           height="320"

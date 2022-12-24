@@ -17,7 +17,7 @@ function Editor({
 }) {
   return (
     <div
-      className={`flex flex-col mr-5 md:mr-0 overflow-hidden md:w-[${width}px] mt-${marginTop} ml-${marginLeft}`}
+      className={`flex flex-col mr-0 overflow-hidden md:w-[${width}px] mt-${marginTop} ml-${marginLeft}`}
     >
       <div
         className={`flex justify-between bg-red-500 items-center pl-3 opacity-80 h-[20px] md:h-[30px] w-[${width}px] rounded-tl-md rounded-tr-md`}
