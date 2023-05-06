@@ -11,6 +11,19 @@ export default function ConvertCode() {
 
   const currentLang = document.getElementById("current-language");
   const langToConvert = document.getElementById("language-to-be-converted");
+  const languagesAvailable = [
+    "javascript",
+    "typeScript",
+    "python",
+    "c",
+    "c++",
+    "ruby",
+    "rust",
+    "flutter",
+    "dart",
+    "go",
+    "redux",
+  ];
 
   const translateFromOneLangToAnother = async function (
     codeToBeConverted,
@@ -101,6 +114,7 @@ const error = {
           marginLeft="0"
           selectedLanguageBoxColor="green"
           isEditable="true"
+          availableLanguages={languagesAvailable}
           id="current-language"
           code={codeToBeConverted}
           handleChange={setCodeToBeConverted}
@@ -112,6 +126,7 @@ const error = {
           marginLeft="0"
           selectedLanguageBoxColor="yellow"
           isEditable="true"
+          availableLanguages={languagesAvailable}
           id="language-to-be-converted"
           code={convertedCode}
           handleChange={setConvertedCode}
