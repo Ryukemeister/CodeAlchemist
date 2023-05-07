@@ -17,6 +17,7 @@ export default function ConvertCode() {
     "python",
     "c",
     "c++",
+    "java",
     "ruby",
     "rust",
     "flutter",
@@ -37,26 +38,32 @@ export default function ConvertCode() {
         Authorization: "Bearer " + String(apiKey),
       },
       body: JSON.stringify({
-        model: "code-davinci-002",
-        prompt: `#####Translate this function from ${currentLanguage} into ${languageToBeTranslated}### ${currentLanguage}\n ${codeToBeConverted}### ${languageToBeTranslated}`,
-        temperature: 0,
-        max_tokens: 2000,
-        top_p: 1.0,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-        stop: ["###"],
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "You are a helpful assistant." },
+          {
+            role: "user",
+            content: `Translate the following piece of code from ${currentLanguage} to ${languageToBeTranslated} without suggesting any notes: "${codeToBeConverted}"`,
+          },
+        ],
       }),
     };
-    await fetch("https://api.openai.com/v1/completions", requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        const translatedCode = data.choices[0].text.trimStart().trimEnd();
 
-        setConvertedCode(translatedCode);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    try {
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        requestOptions
+      );
+
+      const data = await response.json();
+      const translatedCode = data.choices[0].message.content
+        .trimStart()
+        .trimEnd();
+
+      setConvertedCode(translatedCode);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   function handleClick(prompt) {
