@@ -39,40 +39,48 @@ export default function ExplainCode() {
         Authorization: "Bearer " + String(apiKey),
       },
       body: JSON.stringify({
-        model: "code-davinci-002",
-        prompt: `${inputCodePrompt}"""Here's what the code is doing`,
-        temperature: 0,
-        max_tokens: 80,
-        top_p: 1.0,
-        frequency_penalty: 0.0,
-        presence_penalty: 0.0,
-        stop: [`"""`],
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "You are a helpful assistant." },
+          {
+            role: "user",
+            content: `Explain the following piece of code: ${inputCodePrompt}`,
+          },
+        ],
       }),
     };
 
     try {
-      await fetch("https://api.openai.com/v1/completions", requestOptions)
-        .then((response) => response.json())
-        .then((data) => {
-          const responseText = data.choices[0].text;
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        requestOptions
+      );
 
-          // Splitting up the text that we get as a response from the api
-          // Then filtering out the unnecessary part
-          const splitResponseText = responseText.split("\n");
-          const filterResponseText = splitResponseText.filter((text) => {
-            if (!(text == ":") && text.length > 0) {
-              return text;
-            }
-          });
-          const joinFilteredResponseText = filterResponseText.join(" ");
+      const data = await response.json();
+      const translatedCode = data.choices[0].message.content
+        .trimStart()
+        .trimEnd();
+      const splitResponseText = translatedCode.split(". ");
 
-          setCodeReadyToBeExplained(filterResponseText);
-          speak(joinFilteredResponseText);
-        });
-    } catch (err) {
-      console.error(err);
+      setCodeReadyToBeExplained(splitResponseText);
+      speak(translatedCode);
+    } catch (error) {
+      console.log(error);
     }
   };
+
+  function speak(text) {
+    const utterance = new SpeechSynthesisUtterance(text);
+    const voices = window.speechSynthesis.getVoices();
+
+    // Setting up the pitch tone and rate
+    utterance.pitch = 1;
+    utterance.rate = 0.8;
+    utterance.voice = voices[7];
+    utterance.volume = 2;
+
+    window.speechSynthesis.speak(utterance);
+  }
 
   function handleClick(prompt) {
     // Error message to be displayed
@@ -92,19 +100,6 @@ const error = {
     }
 
     explainUserCodeSnippet(prompt);
-  }
-
-  function speak(text) {
-    const utterance = new SpeechSynthesisUtterance(text);
-    const voices = window.speechSynthesis.getVoices();
-
-    // Setting up the pitch tone and rate
-    utterance.pitch = 1;
-    utterance.rate = 0.8;
-    utterance.voice = voices[7];
-    utterance.volume = 2;
-
-    window.speechSynthesis.speak(utterance);
   }
 
   return (
