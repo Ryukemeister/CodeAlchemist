@@ -59,6 +59,47 @@ export default function ConvertCode() {
       });
   };
 
+  const convert = async function (
+    codeToBeConverted,
+    currentLanguage,
+    languageToBeTranslated
+  ) {
+    const requestOptions = {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: "Bearer " + String(apiKey),
+      },
+      body: JSON.stringify({
+        model: "gpt-3.5-turbo",
+        messages: [
+          { role: "system", content: "You are a helpful assistant." },
+          {
+            role: "user",
+            content: `Translate the following piece of code from ${currentLanguage} to ${languageToBeTranslated} without suggesting any notes: "${codeToBeConverted}"`,
+          },
+        ],
+      }),
+    };
+
+    try {
+      const response = await fetch(
+        "https://api.openai.com/v1/chat/completions",
+        requestOptions
+      );
+      const data = await response.json();
+      const translatedCode = data.choices[0].message.content
+        .trimStart()
+        .trimEnd();
+      console.log(data);
+      console.log(data.choices[0].message);
+      console.log(translatedCode);
+      setConvertedCode(translatedCode);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   function handleClick(prompt) {
     const err = `// Oops, something's wrong :(
 
@@ -88,11 +129,12 @@ const error = {
     }
 
     setConvertedCode("");
-    translateFromOneLangToAnother(
-      prompt,
-      currentLang.value,
-      langToConvert.value
-    );
+    convert(prompt, currentLang.value, langToConvert.value);
+    // translateFromOneLangToAnother(
+    //   prompt,
+    //   currentLang.value,
+    //   langToConvert.value
+    // );
   }
 
   return (
